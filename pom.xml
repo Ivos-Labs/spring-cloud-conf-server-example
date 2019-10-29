@@ -1,0 +1,182 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>Spring Cloud Config Server example</name>
+
+	<groupId>com.ivoslabs</groupId>
+	<artifactId>spring-cloud-config-server-example</artifactId>
+	<version>1.0.0</version>
+
+	<packaging>jar</packaging>
+
+	<description>Spring-cloud-config-server</description>
+
+	<properties>
+
+		<!-- Generic properties -->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<main.class>com.ivoslabs.cloud.config.server.CloudConfigServerMain</main.class>
+		<output.directory>target/springCloudConfigServer</output.directory>
+		<output.final.name>spring-cloud-config-server</output.final.name>
+
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+			<version>1.2.0.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-autoconfigure</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>1.4.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>1.4.1.RELEASE</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>ingredients/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>chef</id>
+						<phase>test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo>Compiling ${project.artifactId}, profile: ${profileId}</echo>
+								<mkdir dir="${basedir}/${output.directory}/conf" />
+								<mkdir dir="${basedir}/${output.directory}/conf/props" />
+								<mkdir dir="${basedir}/${output.directory}/logs" />
+								<copy file="${basedir}/${app.props.path}" tofile="${basedir}/${output.directory}/conf/application.properties" />
+
+								<copy file="${basedir}/${sicatelwsbes.props.path}" tofile="${basedir}/${output.directory}/conf/props/application-spring_cloud_conf_web_example.properties" />
+								<!-- TODO -->
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<finalName>${output.final.name}</finalName>
+							<outputDirectory>${basedir}/${output.directory}</outputDirectory>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+										<exclude>.classpath</exclude>
+										<exclude>.gitkeep</exclude>
+										<exclude>.project</exclude>
+									</excludes>
+								</filter>
+							</filters>
+
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>${main.class}</mainClass>
+									<manifestEntries>
+										<Maven-Compiler-Target>${maven.compiler.target}</Maven-Compiler-Target>
+									</manifestEntries>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.factories</resource>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.tooling</resource>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profileId>development</profileId>
+				<app.props.path>src/main/resources/ingredients/application-dev.properties</app.props.path>
+				<sicatelwsbes.props.path>src/main/resources/ingredients/example/application-spring_cloud_conf_web_example-dev.properties</sicatelwsbes.props.path>
+			</properties>
+		</profile>
+
+
+
+
+
+	</profiles>
+
+</project>
