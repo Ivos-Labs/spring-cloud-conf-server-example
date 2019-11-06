@@ -22,10 +22,12 @@ import org.springframework.context.annotation.PropertySource;
 public class CloudConfigServerMain {
 
     public static void main(String[] arguments) {
-	if (System.getProperty("app.root") == null) {
-	    System.setProperty("app.root", new File(".").getPath());
-	}
-	SpringApplication.run(CloudConfigServerMain.class);
+        
+        if (System.getProperty("app.root") == null) {
+            System.setProperty("app.root", new File(".").getPath());
+        }
+        
+        SpringApplication.run(CloudConfigServerMain.class);
     }
 
 }
