@@ -12,7 +12,7 @@
    `after build target\springCloudConfigServer con todos los archivos para despliegue`
 
 
-```
+ ```
 springCloudConfigServer
 ├───src
 └───target
@@ -25,7 +25,7 @@ springCloudConfigServer
         │   └──application.properties
         │   
         └───spring-cloud-config-server.jar
-```
+ ```
 
 
  
