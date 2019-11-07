@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>Spring Cloud Config Server example</name>
@@ -31,7 +32,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
-			<version>1.2.0.RELEASE</version>
+			<version>2.2.0.M2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.fasterxml.jackson.core</groupId>
@@ -51,12 +52,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>1.4.1.RELEASE</version>
+			<version>2.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>1.4.1.RELEASE</version>
+			<version>2.2.0.RELEASE</version>
 		</dependency>
 
 	</dependencies>
@@ -91,11 +92,10 @@
 								<echo>Compiling ${project.artifactId}, profile: ${profileId}</echo>
 								<mkdir dir="${basedir}/${output.directory}/conf" />
 								<mkdir dir="${basedir}/${output.directory}/conf/props" />
-								<mkdir dir="${basedir}/${output.directory}/logs" />
 								<copy file="${basedir}/${app.props.path}" tofile="${basedir}/${output.directory}/conf/application.properties" />
 
-								<copy file="${basedir}/${sicatelwsbes.props.path}" tofile="${basedir}/${output.directory}/conf/props/application-spring_cloud_conf_web_example.properties" />
-								<!-- TODO -->
+								<copy file="${basedir}/${example.props.path}" tofile="${basedir}/${output.directory}/conf/props/application-spring_cloud_conf_web_example.properties" />
+								
 							</tasks>
 						</configuration>
 					</execution>
@@ -169,13 +169,9 @@
 			<properties>
 				<profileId>development</profileId>
 				<app.props.path>src/main/resources/ingredients/application-dev.properties</app.props.path>
-				<sicatelwsbes.props.path>src/main/resources/ingredients/example/application-spring_cloud_conf_web_example-dev.properties</sicatelwsbes.props.path>
+				<example.props.path>src/main/resources/ingredients/example/application-spring_cloud_conf_web_example-dev.properties</example.props.path>
 			</properties>
 		</profile>
-
-
-
-
 
 	</profiles>
 
