@@ -24,6 +24,7 @@ public class CloudConfigServerMain {
     public static void main(String[] arguments) {
         
         if (System.getProperty("app.root") == null) {
+            // if the system property app.root is null, the application will use the execution directory 
             System.setProperty("app.root", new File(".").getPath());
         }
         

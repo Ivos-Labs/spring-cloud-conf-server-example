@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>Spring Cloud Config Server example</name>
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
-			<version>2.2.0.M2</version>
+			<version>2.2.0.RELEASE</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.fasterxml.jackson.core</groupId>
@@ -92,10 +92,9 @@
 								<echo>Compiling ${project.artifactId}, profile: ${profileId}</echo>
 								<mkdir dir="${basedir}/${output.directory}/conf" />
 								<mkdir dir="${basedir}/${output.directory}/conf/props" />
-								<copy file="${basedir}/${app.props.path}" tofile="${basedir}/${output.directory}/conf/application.properties" />
-
+								<copy file="${basedir}/${app.props.path}"     tofile="${basedir}/${output.directory}/conf/application.properties" />
 								<copy file="${basedir}/${example.props.path}" tofile="${basedir}/${output.directory}/conf/props/application-spring_cloud_conf_web_example.properties" />
-								
+
 							</tasks>
 						</configuration>
 					</execution>

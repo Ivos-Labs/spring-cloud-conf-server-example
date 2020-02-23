@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
  * @author imperezivan
  *
  */
-public class Starter {
+public class TestCloudConfigServer {
 
     public static void main(String[] args) {
         try {
@@ -20,6 +20,9 @@ public class Starter {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        
+        
         CloudConfigServerMain.main(null);
+        
     }
 }
