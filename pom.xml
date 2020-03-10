@@ -1,17 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
-
-	<name>Spring Cloud Config Server example</name>
 
 	<groupId>com.ivoslabs</groupId>
 	<artifactId>spring-cloud-config-server-example</artifactId>
 	<version>1.0.0</version>
-
 	<packaging>jar</packaging>
-
-	<description>Spring-cloud-config-server</description>
+	
+	<name>Spring Cloud Config Server example</name>
+	<description>Spring cloud config server example without git</description>
 
 	<properties>
 
@@ -24,6 +21,9 @@
 		<main.class>com.ivoslabs.cloud.config.server.CloudConfigServerMain</main.class>
 		<output.directory>target/springCloudConfigServer</output.directory>
 		<output.final.name>spring-cloud-config-server</output.final.name>
+		
+		<!-- Spring cloud version -->
+		<spring-cloud.version>2.2.0.RELEASE</spring-cloud.version>
 
 	</properties>
 
@@ -32,7 +32,8 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
-			<version>2.2.0.RELEASE</version>
+			<version>${spring-cloud.version}</version>
+			<!-- 
 			<exclusions>
 				<exclusion>
 					<groupId>com.fasterxml.jackson.core</groupId>
@@ -46,18 +47,20 @@
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
-			</exclusions>
+			</exclusions> -->
 		</dependency>
 
+		 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>2.2.0.RELEASE</version>
+			<version>${spring-cloud.version}</version>
 		</dependency>
+	 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.2.0.RELEASE</version>
+			<version>${spring-cloud.version}</version>
 		</dependency>
 
 	</dependencies>
