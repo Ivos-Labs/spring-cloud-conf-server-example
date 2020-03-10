@@ -24,7 +24,9 @@ public class CloudConfigServerMain {
     public static void main(String[] arguments) {
         
         if (System.getProperty("app.root") == null) {
-            // if the system property app.root is null, the application will use the execution directory 
+            // if the 'app.root' system property is null, 
+            // the application will set the execution directory as the app.root,
+            // so in this directory Spring will try to find the application properties
             System.setProperty("app.root", new File(".").getPath());
         }
         
